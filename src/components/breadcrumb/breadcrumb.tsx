@@ -6,15 +6,15 @@ import path from "path";
 
 type IBreadcrumb = {
   link: string | false;
-  name: string;
+  name: string | JSX.Element | number;
 };
 
-const Breadcrumb = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [data, setData] = useState<IBreadcrumb[]>([]);
+const Breadcrumb = ({data}: {data: IBreadcrumb[]}) => {
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const [data, setData] = useState<IBreadcrumb[]>([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const data: IBreadcrumb[] = pathname !== "/" ? pathname.split("/").map((item) => {
       if (item === "") {
         return {
@@ -32,7 +32,7 @@ const Breadcrumb = () => {
     }];
 
     setData(data);
-  }, [pathname]);
+  }, [pathname]); */
 
   return (
     <div className="container mb-[50px]">

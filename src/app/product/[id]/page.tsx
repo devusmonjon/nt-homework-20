@@ -1,5 +1,6 @@
 "use client";
 
+import { Breadcrumb } from "@/components";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ReactStars from "react-stars";
@@ -39,7 +40,12 @@ const Page = ({ params: { id } }: Props) => {
     .map((num, i) => (i !== 1 ? num : num.slice(0, 2)))
     .join(".");
 
-  return (
+  return (<>
+  <Breadcrumb data={[
+      {link: "/", name: "Home"},
+      {link: false, name: "Products"},
+      {link: false, name: product?.title || <span className="loading loading-spinner"></span>},
+    ]} />
     <div className="container mb-[100px]">
       <div className="mb-4 w-full flex- justify-between">
         <button className="btn mb-10" onClick={() => window.history.back()}>
@@ -76,34 +82,70 @@ const Page = ({ params: { id } }: Props) => {
       </div>
 
       <div className="flex justify-between mt-4">
-        {product ? <div className="flex flex-col">
-          <ReactStars
-            count={5}
-            value={product?.rating}
-            size={24}
-            color2={"#ffd700"}
-          />
-          <span className="font-bold text-xl">{product?.rating}</span>
-          <span className="text-sm">Rating</span>
-        </div> : <span className="loading loading-spinner"></span>}
-        {product ? <div className="flex flex-col">
-          <span className="font-bold text-xl">{product?.stock}</span>
-          <span className="text-sm">Stock</span>
-        </div> : <span className="loading loading-spinner"></span>}
+        {product ? (
+          <div className="flex flex-col">
+            <ReactStars
+              count={5}
+              value={product?.rating}
+              size={24}
+              color2={"#ffd700"}
+            />
+            <span className="font-bold text-xl">{product?.rating}</span>
+            <span className="text-sm">Rating</span>
+          </div>
+        ) : (
+          <span className="loading loading-spinner"></span>
+        )}
+        {product ? (
+          <div className="flex flex-col">
+            <span className="font-bold text-xl">{product?.stock}</span>
+            <span className="text-sm">Stock</span>
+          </div>
+        ) : (
+          <span className="loading loading-spinner"></span>
+        )}
       </div>
 
-      <div className="mt-4">
-        <span className="font-bold text-xl line-through text-red-500">
-          {product?.price}
-        </span>{" "}
-        ~ <span className="font-bold text-xl">{price}</span>
-      </div>
+      {product ? (
+        <div className="mt-4">
+          <span className="font-bold text-xl line-through text-red-500">
+            {product?.price}
+          </span>{" "}
+          ~ <span className="font-bold text-xl">{price}</span>
+        </div>
+      ) : (
+        <div className="mt-4">
+          <span className="loading loading-spinner"></span>
+        </div>
+      )}
 
       <div className="mt-4 flex w-full flex-col md:flex-row justify-between md:gap-0 gap-4">
-        <button className="btn w-full md:w-[49%]">Add to cart</button>
-        <button className="btn btn-primary w-full md:w-[49%]">Buy now</button>
+        <button
+          className="btn w-full md:w-[49%]"
+          disabled={product ? false : true}
+        >
+          {product ? (
+            "Add to cart"
+          ) : (
+            <>
+              <span className="loading loading-spinner"></span>Loading ...
+            </>
+          )}
+        </button>
+        <button
+          className="btn btn-primary w-full md:w-[49%]"
+          disabled={product ? false : true}
+        >
+          {product ? (
+            "Buy now"
+          ) : (
+            <>
+              <span className="loading loading-spinner"></span>Loading ...
+            </>
+          )}
+        </button>
       </div>
-    </div>
+    </div></>
   );
 };
 

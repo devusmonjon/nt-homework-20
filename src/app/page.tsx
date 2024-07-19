@@ -1,5 +1,5 @@
 "use client";
-import { Product } from "@/components";
+import { Breadcrumb, Product } from "@/components";
 import { useEffect, useState } from "react";
 
 /*export const metadata = {
@@ -43,6 +43,10 @@ const Page = () => {
   }, []);
 
   return (
+    <>
+    <Breadcrumb data={[
+      {link: false, name: "Home"}
+    ]} />
     <main>
       <div className="container">
         {/* responsive flex */}
@@ -65,6 +69,7 @@ const Page = () => {
           </button>
       </div>
     </main>
+    </>
   );
 };
 
