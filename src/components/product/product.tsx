@@ -24,7 +24,7 @@ const Product = ({
 }: Props) => {
   const router = useRouter();
   return (
-    <div className="card bg-base-100 shadow-xl w-full sm:w-1/2 lg:w-1/3 p-4 mb-4 cursor-pointer">
+    <div className="card bg-base-100 shadow-xl md:w-full w-[99%] sm:w-1/2 lg:w-1/3 p-4 mb-4 cursor-pointer">
       <figure>
         <Image src={thumbnail} alt={title} width={300} height={300} />
       </figure>

@@ -38,9 +38,11 @@ const Page = ({ params: { id } }: Props) => {
 
   return (
     <div className="container mb-[100px]">
-      <button className="btn mb-10" onClick={() => window.history.back()}>
-        Back
-      </button>
+      <div className="mb-4 w-full flex- justify-between">
+        <button className="btn mb-10" onClick={() => window.history.back()}>
+          Back
+        </button>
+      </div>
       <h1 className="text-2xl font-bold mb-4">
         {product?.title ?? <span className="loading loading-spinner"></span>}
       </h1>
@@ -66,12 +68,12 @@ const Page = ({ params: { id } }: Props) => {
 
       <div className="flex justify-between mt-4">
         <div className="flex flex-col">
-            <ReactStars
-              count={5}
-              value={product?.rating}
-              size={24}
-              color2={"#ffd700"}
-            />
+          <ReactStars
+            count={5}
+            value={product?.rating}
+            size={24}
+            color2={"#ffd700"}
+          />
           <span className="font-bold text-xl">{product?.rating}</span>
           <span className="text-sm">Rating</span>
         </div>
