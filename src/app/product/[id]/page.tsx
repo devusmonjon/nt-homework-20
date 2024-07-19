@@ -30,7 +30,10 @@ const Page = ({ params: { id } }: Props) => {
   }, []);
 
   // price with discount
-  const price = ((product?.price ?? 1) * (product?.discountPercentage ?? 1))
+  const price = (
+    (product?.price ?? 1) -
+    (product?.price ?? 1) * ((product?.discountPercentage ?? 1) / 10)
+  )
     .toString()
     .split(".")
     .map((num, i) => (i !== 1 ? num : num.slice(0, 2)))
@@ -49,17 +52,23 @@ const Page = ({ params: { id } }: Props) => {
       <span className="divider mb-4 w-full h-1 content-center"></span>
       {/* responsive flex product codes write here */}
       <div className="carousel carousel-vertical rounded-box h-96 w-[300px]">
-        {product?.images.map((image, index) => (
-          <div className="carousel-item h-full" key={index}>
-            <Image
-              src={image}
-              alt={product?.title}
-              width={300}
-              height={350}
-              className="rounded-box w-full object-cover bg-[#303030]"
-            />
+        {product ? (
+          product?.images.map((image, index) => (
+            <div className="carousel-item h-full" key={index}>
+              <Image
+                src={image}
+                alt={product?.title}
+                width={300}
+                height={350}
+                className="rounded-box w-full object-cover bg-[#303030]"
+              />
+            </div>
+          ))
+        ) : (
+          <div className="w-[300px] h-96 flex justify-center items-center">
+            <span className="loading loading-spinner"></span>
           </div>
-        ))}
+        )}
       </div>
 
       <div className="mt-4">
@@ -67,7 +76,7 @@ const Page = ({ params: { id } }: Props) => {
       </div>
 
       <div className="flex justify-between mt-4">
-        <div className="flex flex-col">
+        {product ? <div className="flex flex-col">
           <ReactStars
             count={5}
             value={product?.rating}
@@ -76,11 +85,11 @@ const Page = ({ params: { id } }: Props) => {
           />
           <span className="font-bold text-xl">{product?.rating}</span>
           <span className="text-sm">Rating</span>
-        </div>
-        <div className="flex flex-col">
+        </div> : <span className="loading loading-spinner"></span>}
+        {product ? <div className="flex flex-col">
           <span className="font-bold text-xl">{product?.stock}</span>
           <span className="text-sm">Stock</span>
-        </div>
+        </div> : <span className="loading loading-spinner"></span>}
       </div>
 
       <div className="mt-4">
