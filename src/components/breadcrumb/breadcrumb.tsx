@@ -38,9 +38,9 @@ const Breadcrumb = ({data}: {data: IBreadcrumb[]}) => {
     <div className="container mb-[50px]">
       <div className="breadcrumbs text-sm">
         <ul>
-          {data.map((item) => {
+          {data.map((item, index) => {
             return (
-              <li key={item.name}>
+              <li key={index}>
                 {item.link ? (
                   <Link href={item.link}>{item.name}</Link>
                 ) : (
